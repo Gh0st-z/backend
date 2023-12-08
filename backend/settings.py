@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE':'mssql',                    
-        'NAME':'',                       
+        'NAME':'Pharmacy_App',                       
         'HOST':'INFINITZ', 
         'PORT':'',                           
         'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }
