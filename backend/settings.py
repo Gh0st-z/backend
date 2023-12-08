@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'backend_api',
+    'autho',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +82,7 @@ DATABASES = {
     'default':{
         'ENGINE':'mssql',                    
         'NAME':'',                       
-        'HOST':'', 
+        'HOST':'INFINITZ', 
         'PORT':'',                           
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
