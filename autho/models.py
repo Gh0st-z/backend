@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from autho.managers import CustomerManager
 
 class customers(AbstractBaseUser):
-    customer_id = models.BigAutoField(primary_key=True, default=None)
     first_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -15,3 +14,9 @@ class customers(AbstractBaseUser):
     objects = CustomerManager()
     class Meta:
         db_table = 'customers'
+
+    @classmethod
+    @transaction.atomic
+    def create_customer(self, validated_data):
+        customer = customers.objects.create_customer(**validated_data)
+        return customer

@@ -23,5 +23,6 @@ class CustomerManager(BaseUserManager):
             middle_name=middle_name,
             last_name=last_name,
             email=email,
-            phone_number=phone_number
+            phone_number=phone_number,
+            password=password
         )
