@@ -120,6 +120,8 @@ REST_FRAMEWORK ={
     ]
 }
 
+AUTH_USER_MODEL = "autho.customers"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

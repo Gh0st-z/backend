@@ -1,9 +1,17 @@
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from .models import customers
 from .serializers import UserSerializer
+
+@api_view(['GET'])
+def RegisterViewGet(request, *args, **kwargs):
+    email = request.GET.get('email', None)
+    customer = customers.objects.get(email=email)
+
 
 @api_view(['POST'])
 def RegisterViewPost( request, *args, **kwargs):
@@ -21,3 +29,28 @@ def RegisterViewPost( request, *args, **kwargs):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
         
     return Response({'message': 'Invalid data provided!'} ,status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['POST'])
+def LoginViewPost(request, *args, **kwargs):
+    data = {
+        'email': request.data.get('email'),
+        'password': request.data.get('password'),
+    }
+    print(data, "asdasd")
+    try:
+        customer_login = customers.objects.get(email=data['email'])
+    except customers.DoesNotExist:
+        return Response({'Error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    customer = authenticate(**data)
+    print(customer, "adasdasdasdasd333")
+    if check_password(data['password'], customer_login.password):
+        print(check_password(data['password'], customer_login.password), "pass checkkkkkkkkkkkk")
+        print(data)
+        customer = authenticate(request, **data)
+        print(customer, "adasdasdasdasd333")
+        if customer is not None:
+            login(request, customer)
+            return Response({'message': 'Login Succeeded!'}, status=status.HTTP_200_OK)
+
+    return Response({'Error': 'Login not succeeded!'}, status=status.HTTP_401_UNAUTHORIZED)
