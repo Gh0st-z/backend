@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,7 +11,12 @@ from .serializers import UserSerializer
 @api_view(['GET'])
 def RegisterViewGet(request, *args, **kwargs):
     email = request.GET.get('email', None)
-    customer = customers.objects.get(email=email)
+    customer = customers.objects.filter(email=email)
+
+    if customer.exists():
+        return JsonResponse({'exists': True})
+    else:
+        return JsonResponse({'exists': False})
 
 
 @api_view(['POST'])
