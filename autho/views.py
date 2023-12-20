@@ -36,19 +36,14 @@ def LoginViewPost(request, *args, **kwargs):
         'email': request.data.get('email'),
         'password': request.data.get('password'),
     }
-    print(data, "asdasd")
+
     try:
         customer_login = customers.objects.get(email=data['email'])
     except customers.DoesNotExist:
         return Response({'Error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-    customer = authenticate(**data)
-    print(customer, "adasdasdasdasd333")
     if check_password(data['password'], customer_login.password):
-        print(check_password(data['password'], customer_login.password), "pass checkkkkkkkkkkkk")
-        print(data)
         customer = authenticate(request, **data)
-        print(customer, "adasdasdasdasd333")
         if customer is not None:
             login(request, customer)
             return Response({'message': 'Login Succeeded!'}, status=status.HTTP_200_OK)
