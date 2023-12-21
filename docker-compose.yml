@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+    asim:
+        image: asim
+        build:
+            context: .
+        entrypoint: ./execute.sh
+        ports:
+        - "8000"
+        networks:
+        - elibrary-net
+        deploy:
+            resources:
+              limits:
+                cpus: '0.50'
+                memory: 1024M
+              reservations:
+                memory: 20M
+            restart_policy:
+              condition: on-failure
+              max_attempts: 3
+
+networks:
+    elibrary-net:
+        name: elibrary-network
+        ipam:
+            driver: default
+            config:
+                - subnet: "152.22.238.0/24"
+                - subnet: "2001:3984:3989::/64"
