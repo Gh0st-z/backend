@@ -1,7 +1,8 @@
 version: '3.7'
 services:
-    asim:
-        image: asim
+    onlinemedshub:
+        env_file: "venv/dbase.env"
+        image: onlinemedshub
         build:
             context: .
         entrypoint: ./execute.sh
