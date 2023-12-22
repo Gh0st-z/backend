@@ -25,3 +25,7 @@ WORKDIR /app
 COPY . /app
 
 RUN chmod +x execute.sh
+
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver"]

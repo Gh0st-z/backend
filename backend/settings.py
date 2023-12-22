@@ -86,15 +86,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': os.getenv("DB_NAME", "db_name"),
-        'HOST': os.getenv("DB_HOST", "localhost"),
-        'PORT': '',
-        'OPTIONS':{
-            'DRIVER': 'ODBC Driver 17 for SQL Server',
-        }
-    }
+        'NAME': os.getenv('DB_NAME', 'Pharmacy_App'),
+        'USER': os.getenv('DB_USER', ''),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': "{0},{1}".format(os.getenv('DB_HOST', 'INFINITZ'), int(os.getenv('DB_PORT', ''))),
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
