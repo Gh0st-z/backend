@@ -23,6 +23,7 @@ services:
 
 networks:
     elibrary-net:
+        external: true
         name: elibrary-network
         ipam:
             driver: default
