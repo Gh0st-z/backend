@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', 'Pharmacy_App'),
         'USER': os.getenv('DB_USER', ''),
         'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': "{0},{1}".format(os.getenv('DB_HOST', 'INFINITZ'), int(os.getenv('DB_PORT', ''))),
+        'HOST': "{0},{1}".format(os.getenv('DB_HOST', 'INFINITZ'), int(os.getenv('DB_PORT', '1433'))),
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
