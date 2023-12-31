@@ -5,7 +5,7 @@ from autho.managers import CustomerManager
 
 class customers(AbstractBaseUser):
     first_name = models.CharField(max_length=100)
-    middle_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100)
     email = models.CharField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=10)
