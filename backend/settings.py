@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "http://localhost:3000",
     "167.86.75.86",
+    "100.64.192.189",
 ]
 
 
