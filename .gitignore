@@ -3,5 +3,5 @@
 /lib64
 /include
 
-.pyc
+**.pyc
 **.cfg
