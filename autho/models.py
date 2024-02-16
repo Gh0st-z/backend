@@ -1,22 +1,23 @@
 from django.db import models, transaction
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth import get_user_model
-from autho.managers import CustomerManager
+from autho.managers import UserManager
 
-class customers(AbstractBaseUser):
+class User(AbstractBaseUser):
     first_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100)
     email = models.CharField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=10)
+    role = models.CharField(max_length=10)
 
-    objects = CustomerManager()
+    objects = UserManager()
     USERNAME_FIELD = 'email'
     class Meta:
-        db_table = 'customers'
+        db_table = 'user'
 
     @classmethod
     @transaction.atomic
-    def create_customer(self, validated_data):
-        customer = customers.objects.create_customer(**validated_data)
-        return customer
+    def create_user(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user

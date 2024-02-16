@@ -123,7 +123,7 @@ REST_FRAMEWORK ={
     ]
 }
 
-AUTH_USER_MODEL = "autho.customers"
+AUTH_USER_MODEL = 'autho.User'
 
 
 # Internationalization

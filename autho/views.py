@@ -5,15 +5,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from .models import customers
+from .models import User
 from .serializers import UserSerializer
 
 @api_view(['GET'])
 def RegisterViewGet(request, *args, **kwargs):
     email = request.GET.get('email', None)
-    customer = customers.objects.filter(email=email)
+    user = User.objects.filter(email=email)
 
-    if customer.exists():
+    if user.exists():
         return JsonResponse({'exists': True})
     else:
         return JsonResponse({'exists': False})
@@ -22,12 +22,13 @@ def RegisterViewGet(request, *args, **kwargs):
 @api_view(['POST'])
 def RegisterViewPost( request, *args, **kwargs):
     data = {
-            'first_name': request.data.get('first_name'),
-            'middle_name': request.data.get('middle_name'),
-            'last_name': request.data.get('last_name'),
-            'email': request.data.get('email'),
-            'phone_number': request.data.get('phone_number'),
-            'password': request.data.get('password'),
+        'first_name': request.data.get('first_name'),
+        'middle_name': request.data.get('middle_name'),
+        'last_name': request.data.get('last_name'),
+        'email': request.data.get('email'),
+        'phone_number': request.data.get('phone_number'),
+        'password': request.data.get('password'),
+        'role': request.data.get('role'),
     }
     serializer = UserSerializer(data=data)
     if serializer.is_valid():
@@ -44,14 +45,14 @@ def LoginViewPost(request, *args, **kwargs):
     }
 
     try:
-        customer_login = customers.objects.get(email=data['email'])
-    except customers.DoesNotExist:
+        user_login = User.objects.get(email=data['email'])
+    except User.DoesNotExist:
         return Response({'Error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-    if check_password(data['password'], customer_login.password):
-        customer = authenticate(request, **data)
-        if customer is not None:
-            login(request, customer)
+    if check_password(data['password'], user_login.password):
+        user = authenticate(request, **data)
+        if user is not None:
+            login(request, user)
             return Response({'message': 'Login Succeeded!'}, status=status.HTTP_200_OK)
 
     return Response({'Error': 'Login not succeeded!'}, status=status.HTTP_401_UNAUTHORIZED)
