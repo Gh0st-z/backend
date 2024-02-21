@@ -46,13 +46,20 @@ def LoginViewPost(request, *args, **kwargs):
 
     try:
         user_login = User.objects.get(email=data['email'])
+        user_data = UserSerializer(user_login).data
     except User.DoesNotExist:
         return Response({'Error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-    if check_password(data['password'], user_login.password):
+    if check_password(data['password'], user_login.password) and user_login.role == "customer":
         user = authenticate(request, **data)
         if user is not None:
             login(request, user)
-            return Response({'message': 'Login Succeeded!'}, status=status.HTTP_200_OK)
+            return Response(user_data, status=status.HTTP_200_OK)
+    
+    if check_password(data['password'], user_login.password) and user_login.role == "admin":
+        user = authenticate(request, **data)
+        if user is not None:
+            login(request, user)
+            return Response(user_data, status=status.HTTP_200_OK)
 
     return Response({'Error': 'Login not succeeded!'}, status=status.HTTP_401_UNAUTHORIZED)
