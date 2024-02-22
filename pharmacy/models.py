@@ -4,11 +4,11 @@ from pharmacy.managers import *
 class Pharmacy(models.Model):
     pharmacy_name = models.CharField(max_length=100, unique=True)
     address = models.CharField(max_length=100)
-    license_number = models.IntegerField(max_length=15)
+    license_number = models.IntegerField()
     phone_number = models.CharField(max_length=15)
     pharmacy_type = models.CharField(max_length=100)
     pharmacy_logo = models.ImageField()
-    website_url = models.CharField(max_length=100, allow_null=True, blank=True)
+    website_url = models.CharField(max_length=100, null=True, blank=True)
 
     objects=PharmacyManager()
     USERNAME_FIELD = 'pharmacy_name'

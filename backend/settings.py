@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'autho.apps.AuthoConfig',
+    'pharmacy.apps.PharmacyConfig',
 ]
 
 MIDDLEWARE = [
