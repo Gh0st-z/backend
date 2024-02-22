@@ -7,6 +7,15 @@ from rest_framework.decorators import api_view
 from .models import Pharmacy
 from .serializers import PharmacySerializer
 
+@api_view(['GET'])
+def PharmacyProfileGet(request, *args, **kwargs):
+    pharmacy_name = request.GET.get('pharmacy_name', None)
+    pharmacy = Pharmacy.objects.filter(pharmacy_name=pharmacy_name)
+    if pharmacy.exists():
+        return JsonResponse({'exists': True})
+    else:
+        return JsonResponse({'exists': False})
+
 @api_view(['POST'])
 def PharmacyProfilePost(request, *args, **kwargs):
     data = {
