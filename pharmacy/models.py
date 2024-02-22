@@ -1,4 +1,5 @@
 from django.db import models
+from pharmacy.managers import *
 
 class Pharmacy(models.Model):
     pharmacy_name = models.CharField(max_length=100, unique=True)
@@ -9,13 +10,14 @@ class Pharmacy(models.Model):
     pharmacy_logo = models.ImageField()
     website_url = models.CharField(max_length=100, allow_null=True, blank=True)
 
-
+    objects=PharmacyManager()
     USERNAME_FIELD = 'pharmacy_name'
 
     class Meta:
         db_table = 'pharmacy'
     
     @classmethod
+    @transaction.atomic
     def create_pharmacy(self, validated_data):
         pharmacy = Pharmacy.objects.create_pharmacy(**validated_data)
         return pharmacy
