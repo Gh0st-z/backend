@@ -21,7 +21,3 @@ class User(AbstractBaseUser):
     def create_user(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
-    
-class PharmacyProfile(models.Model):
-    pharmacy_name = models.CharField(max_length=100)
-    
