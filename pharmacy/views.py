@@ -28,10 +28,9 @@ def PharmacyProfilePost(request, *args, **kwargs):
         'pharmacy_logo': request.data.get('pharmacy_logo'),
         'website_url': request.data.get('website_url'),
     }
-    admin = User.objects.get(id=request.data.get('admin_id'))
+    admin_id = request.data.get('admin_id')
+    data['admin_id'] = admin_id
     serializer = PharmacySerializer(data=data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(admin_id=admin.id)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
-    return Response({'message': 'Invalid data provided!'} ,status=status.HTTP_401_UNAUTHORIZED)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data, status=status.HTTP_201_CREATED)

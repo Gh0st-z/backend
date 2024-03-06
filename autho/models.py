@@ -17,6 +17,9 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     class Meta:
         db_table = 'user'
+    
+    def __str__(self):
+        return str(self.id)
 
     @classmethod
     @transaction.atomic
