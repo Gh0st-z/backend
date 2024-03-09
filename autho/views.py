@@ -27,6 +27,7 @@ def RegisterViewPost( request, *args, **kwargs):
         'last_name': request.data.get('last_name'),
         'email': request.data.get('email'),
         'phone_number': request.data.get('phone_number'),
+        'address': request.data.get('address'),
         'password': request.data.get('password'),
         'role': request.data.get('role'),
     }

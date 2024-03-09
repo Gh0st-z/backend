@@ -4,7 +4,7 @@ from autho.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields = ('id', 'first_name', 'middle_name', 'last_name', 'email', 'phone_number', 'password', 'role')
+        fields = ('id', 'first_name', 'middle_name', 'last_name', 'email', 'phone_number', 'address', 'password', 'role')
 
     def create(self, validated_data):
         user = User.create_user(validated_data)
