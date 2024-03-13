@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'autho.apps.AuthoConfig',
     'pharmacy.apps.PharmacyConfig',
+    'product.apps.ProductConfig',
 ]
 
 MIDDLEWARE = [
