@@ -17,6 +17,28 @@ def RegisterViewGet(request, *args, **kwargs):
         return JsonResponse({'exists': True})
     else:
         return JsonResponse({'exists': False})
+    
+@api_view(['GET'])
+def GetStaffDetails(request, *args, **kwargs):
+    staffs = User.objects.filter(role='staff')
+
+    if staffs.exists():
+        serializer = UserSerializer(staffs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    else:
+        return Response({'message': 'No data found!'}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def GetUserDetails(request, *args, **kwargs):
+    users = User.objects.filter(role='customer')
+
+    if users.exists():
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    else:
+        return Response({'message': 'No data found!'}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])
