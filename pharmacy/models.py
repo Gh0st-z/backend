@@ -5,10 +5,15 @@ from django.db import models
 from autho.models import User
 
 def filepath(request, filename):
-    old_filename = filename
-    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
-    filename = "%s%s" % (timeNow, old_filename)
-    return os.path.join('uploads/', filename)
+    try:
+        extension = filename.split('.')[-1]
+    except:
+        extension = 'jpg'
+    extension = "jpg" if extension == "jpeg" else extension
+    code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    random_string = code + "." + extension
+
+    return '/'.join([str(instance.id), 'company_logos', random_string])
 
 class Pharmacy(models.Model):
     pharmacy_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
